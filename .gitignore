@@ -50,6 +50,8 @@ mysql-embedded
 *.7z
 .mvn
 mvnw.cmd
+mvnw
+HELP.md
 
 # Maven generated files
 *.releaseBackup
