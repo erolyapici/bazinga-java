@@ -7,5 +7,15 @@ import java.util.Optional;
 
 public interface UserRepository {
 
-    Optional<List<UserEntity>> getUsers();
+    Optional<List<UserEntity>> findAll();
+
+    Optional<UserEntity> findUserByUserName(String username);
+
+    Optional<UserEntity> save(UserEntity entity);
+
+    Optional<UserEntity> getUserById(Integer id);
+
+    Optional<Boolean> delete(UserEntity userEntity);
+
+    Optional<UserEntity> updateUser(UserEntity userEntity);
 }

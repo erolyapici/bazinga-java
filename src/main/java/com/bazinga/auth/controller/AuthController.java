@@ -20,7 +20,7 @@ public class AuthController extends BaseController<AuthService> {
         setServiceProvider(authService);
     }
 
-    @PostMapping("/auth")
+    @PostMapping("/login")
     public ResponseEntity<EndpointResponse<AuthResponse>> auth(@RequestBody AuthRequest request) {
         return run(authService -> authService.getAuth(request));
 

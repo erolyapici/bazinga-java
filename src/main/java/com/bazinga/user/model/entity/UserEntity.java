@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -27,7 +28,11 @@ public class UserEntity extends BaseEntity {
     private Integer state;
     @Column(name = "IDATE")
     private Date insertDate;
-    @Column(name = "UDATE")
+    @Column(name = "UDATE",nullable = true)
     private Date updateDate;
+
+
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "user", cascade = CascadeType.ALL)
+    private List<UserRoleEntity> roles;
 
 }

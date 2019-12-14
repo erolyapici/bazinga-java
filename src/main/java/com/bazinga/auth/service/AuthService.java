@@ -8,4 +8,6 @@ import java.util.Optional;
 
 public interface AuthService {
     Optional<AuthResponse> getAuth(AuthRequest request);
+
+    Optional<String> getAuthenticationUserName(String token);
 }
