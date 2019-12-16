@@ -9,9 +9,11 @@ import com.bazinga.user.model.request.CreatedUserRequest;
 import com.bazinga.user.model.request.UpdateUserRequest;
 import com.bazinga.user.service.UserService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@PreAuthorize("hasRole('ADMIN')")
 public class UserController extends BaseController<UserService> {
 
 

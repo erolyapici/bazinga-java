@@ -41,7 +41,6 @@ public class UserConverter implements GenericDtoConverter<UserDto, UserEntity> {
         userEntity.setUsername(request.getUsername());
         userEntity.setName(request.getName());
         userEntity.setSurname(request.getSurname());
-        userEntity.setPassword(request.getPassword());
         userEntity.setUpdateDate(Calendar.getInstance().getTime());
         return userEntity;
     }

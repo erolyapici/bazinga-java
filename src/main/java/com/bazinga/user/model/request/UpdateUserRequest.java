@@ -13,8 +13,6 @@ public class UpdateUserRequest extends BaseRequest {
     @Pattern(regexp = "^[A-Za-z0-9]+$")
     private String username;
     @NotNull
-    private String password;
-    @NotNull
     @Pattern(regexp = "^[A-Za-z ]+$")
     private String surname;
     @NotNull

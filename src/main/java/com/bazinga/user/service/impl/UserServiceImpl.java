@@ -11,6 +11,7 @@ import com.bazinga.user.model.request.UpdateUserRequest;
 import com.bazinga.user.repository.UserRepository;
 import com.bazinga.user.service.RoleService;
 import com.bazinga.user.service.UserService;
+import com.bazinga.user.util.UserPasswordUtil;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -24,11 +25,13 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     private UserConverter userConverter;
     private RoleService roleService;
+    private UserPasswordUtil userPasswordUtil;
 
-    public UserServiceImpl(UserRepository userRepository, UserConverter userConverter, RoleService roleService) {
+    public UserServiceImpl(UserRepository userRepository, UserConverter userConverter, RoleService roleService, UserPasswordUtil userPasswordUtil) {
         this.userRepository = userRepository;
         this.userConverter = userConverter;
         this.roleService = roleService;
+        this.userPasswordUtil = userPasswordUtil;
     }
 
     @Override
@@ -46,8 +49,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<UserDto> createUser(CreatedUserRequest request) {
-        UserEntity convert = userConverter.convert(request);
-        Optional<UserEntity> userEntity = userRepository.save(convert);
+        Optional<UserDto> userByUserName = getUserByUserName(request.getUsername());
+        if (userByUserName.isPresent()) {
+            throw new ServiceException(ErrorCode.build("user", "could-not-created"));
+        }
+        UserEntity entity = userConverter.convert(request);
+        entity.setPassword(userPasswordUtil.encode(request.getPassword()).get());
+        Optional<UserEntity> userEntity = userRepository.save(entity);
         if (userEntity.isPresent()) {
             return Optional.of(userConverter.convert(userEntity.get()));
         }

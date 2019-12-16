@@ -1,3 +1,3 @@
 # bazinga-java
 
-Spring boot & HikariCP rest API
+Spring boot Spring security Mysql JWT token
